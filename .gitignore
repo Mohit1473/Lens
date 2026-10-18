@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.tmp/
+.ipynb_checkpoints/
+.pytest_cache/
+.streamlit/secrets.toml
+data/processed/
+data/uploads/
+data/structured/
+data/archive/
+data/archive.zip
+*.zip
+tmp/
+vercel-app/node_modules/
+vercel-app/.next/

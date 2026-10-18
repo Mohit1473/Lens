@@ -1,0 +1,13 @@
+# Custom theme for the Job Resume Matcher.
+# Colours come from a colour-blind-validated palette; see app/app.py for chart colours.
+[theme]
+base = "light"
+primaryColor = "#2a78d6"
+backgroundColor = "#f9f9f7"
+secondaryBackgroundColor = "#f0efec"
+textColor = "#0b0b0b"
+font = "sans serif"
+
+[server]
+# Matches the app's 10 MB-per-PDF check, so the uploader shows the real limit.
+maxUploadSize = 10
