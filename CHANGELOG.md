@@ -7,6 +7,14 @@ under **Unreleased** before sharing or deploying the application.
 
 ### Added
 
+- README: screenshots, How it works, Two ways to use it, and FAQ sections.
+- Web app (`vercel-app`): Manual and Automated modes. **Auto-run all steps** picks a
+  role template, types the job description, ticks must-haves, loads candidates and
+  ranks them, with a live step tracker and a Stop button.
+- Web app: role templates (Data Analyst, BI Analyst, Python Developer, Data Engineer,
+  ML Engineer) that prefill job title, seniority, location and job description.
+- Web app: shortlist-size option, Reset to defaults, and last-used entries restored
+  per browser.
 - Dashboard-style results page: sidebar inputs, KPI cards, and Overview, Ranking,
   Compare, Candidate profile and Export tabs.
 - Charts for score breakdown, score distribution, required-skills matrix, skill gaps
@@ -24,6 +32,7 @@ under **Unreleased** before sharing or deploying the application.
 
 ### Changed
 
+- Web app: new deep navy theme with light result cards.
 - Score weights now live in one place (`SCORE_WEIGHTS`) and are shared by the
   scoring code and the charts.
 - Requires Streamlit 1.65 or newer and lists Altair explicitly.
@@ -56,6 +65,9 @@ under **Unreleased** before sharing or deploying the application.
 
 ### Fixed
 
+- Web app: blind-screening labels are now consistent across cards, table and CSV.
+- Web app: `.txt` uploads are accepted on Windows even when the browser reports no
+  file type, and uploaded resumes keep their file names when blind screening is off.
 - Results no longer disappear when filtering, comparing or selecting candidates;
   the analysis is kept in session state until the next run.
 - The uploader now shows and enforces the real 10 MB per-PDF limit.

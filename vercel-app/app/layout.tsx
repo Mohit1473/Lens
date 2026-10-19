@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Lens",
-  description: "Explainable, privacy-aware candidate shortlisting",
+  description: "Lens: see who fits a role, and exactly why.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

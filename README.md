@@ -1,22 +1,87 @@
 # Lens
 
-A Streamlit tool that ranks PDF resumes against a job description, explains every
-score, and keeps the final decision with a human reviewer.
+**See who fits — and exactly why.**
 
-- **Dashboard results**: KPI cards, a score-breakdown chart, score distribution,
-  a required-skills matrix and a skill-gap chart across the candidate pool.
+Lens ranks a stack of resumes against a job description and traces every score back
+to the skills it found, so a recruiter can see the evidence behind each shortlist
+and the final call stays with a person.
+
+**Live demo:** coming soon
+
+![Lens web app: ranked shortlist with evidence for each candidate](docs/screenshots/web-shortlist.png)
+
+## How it works
+
+1. **Describe the role.** Pick a role template or paste a job description. Required
+   skills are detected automatically.
+2. **Choose must-haves.** Untick any skill that is only "nice to have".
+3. **Add candidates.** Upload resumes, or use the built-in demo set.
+4. **Review the shortlist.** Every candidate shows a score out of 100, the skills
+   matched and missing, and whether all must-haves are met.
+
+Prefer one click? In the web app, **Auto-run all steps** fills the form and builds
+the shortlist for you, showing each step as it goes.
+
+![Auto-run filling in the form step by step](docs/screenshots/web-auto-run.png)
+
+## Two ways to use it
+
+| | Web app (`vercel-app/`) | Python dashboard (`app/`) |
+|---|---|---|
+| Built with | Next.js + TypeScript | Streamlit + scikit-learn |
+| Resumes | `.txt` files | PDF files |
+| Highlights | Manual and Automated modes, role templates, runs fully in the browser | Charts, candidate comparison, PDF decision report, structured demo dataset |
+
+![Streamlit dashboard with score breakdown, distribution and skill matrix](docs/screenshots/streamlit-dashboard.png)
+
+## Features
+
 - **Explainable scores**: every candidate shows matched and missing skills and how
   many points each score component added.
 - **Must-have checks**: required skills are detected from the job description;
   missing must-haves are flagged for review, never auto-rejected.
-- **Side-by-side comparison** of up to three candidates, plus a candidate profile view.
-- **Blind screening** (on by default): names and file names are hidden in results,
-  the CSV export and the PDF report.
+- **Blind screening** (on by default): names and file names are hidden in results
+  and exports.
+- **Negation-aware skill detection**: "no Python experience" does not count as Python.
+- **Dashboard results** (Streamlit): KPI cards, score-breakdown chart, score
+  distribution, required-skills matrix, skill gaps and side-by-side comparison.
 - **Privacy-sanitised demo dataset** for trying the app without real uploads.
 
-## Setup
+## FAQ
 
-### Windows
+**Does Lens make hiring decisions?**
+No. It ranks and explains; a person decides. Candidates missing a must-have are
+flagged for review rather than rejected.
+
+**Where does resume data go?**
+The web app runs entirely in your browser, so uploaded text is never sent to a
+server. The Streamlit app processes uploads in a temporary folder that is deleted
+straight after analysis.
+
+**Does it use AI or an LLM?**
+No. Scoring is transparent: rule-based skill detection plus keyword and TF-IDF
+similarity, with fixed weights you can read below. That is what makes every score
+explainable.
+
+**How is this different from resume-tailoring tools?**
+Those help one candidate tailor one resume to many jobs. Lens works the other way
+round: it helps a recruiter screen many candidates for one role.
+
+## Run the web app
+
+```bash
+cd vercel-app
+npm install
+npm run dev
+```
+
+Then open http://localhost:3000. See `vercel-app/README.md` for deployment to Vercel.
+
+## Run the Python dashboard
+
+### Setup
+
+#### Windows
 
 ```bat
 py -3.13 -m venv .venv
@@ -25,7 +90,7 @@ python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 ```
 
-### macOS and Linux
+#### macOS and Linux
 
 ```bash
 python3 -m venv .venv
@@ -34,7 +99,7 @@ python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 ```
 
-## Run the app
+### Start the dashboard
 
 ```bat
 .venv\Scripts\streamlit run app\app.py
@@ -118,6 +183,7 @@ ranking as a decision.
 
 ## Project layout
 
+- `vercel-app/` — Next.js web app with Manual and Automated modes.
 - `app/` — Streamlit dashboard (sidebar inputs, KPI cards, tabbed results, charts).
 - `.streamlit/config.toml` — app theme and the 10 MB upload limit.
 - `src/` — reusable extraction, skill detection, scoring and report code.
@@ -126,4 +192,5 @@ ranking as a decision.
 - `data/structured/` — privacy-sanitized structured portfolio dataset used by the app.
 - `data/` — sample PDF and optional legacy PDF archive retained locally for extraction tests.
 - `notebooks/` — exploratory analysis.
+- `docs/screenshots/` — images used in this README.
 - `CHANGELOG.md` — completed features, fixes, and dependency changes.
