@@ -12,15 +12,27 @@ and the final call stays with a person.
 
 ## How it works
 
-1. **Describe the role.** Pick a role template or paste a job description. Required
-   skills are detected automatically.
+1. **Describe the role.** Pick a ready-made role, or choose **Write my own role** and
+   just paste your own job description: Lens fills the job title, seniority, minimum
+   experience, employment type and location from it. Required
+   skills and the minimum years of experience ("3+ years") are detected automatically.
 2. **Choose must-haves.** Untick any skill that is only "nice to have".
 3. **Add candidates.** Upload resumes, or use the built-in demo set.
-4. **Review the shortlist.** Every candidate shows a score out of 100, the skills
-   matched and missing, and whether all must-haves are met.
+4. **Review the shortlist.** Every candidate shows a score ring out of 100, a bar
+   showing how many points came from skills, keywords and text similarity, and
+   whether all must-haves are met.
+5. **See what stands out.** Awards, competition results (HackerRank, Kaggle,
+   hackathons), certifications and internships are pulled out of each resume and shown
+   on the card, so a recruiter can understand the candidate beyond the score.
+6. **Check the evidence.** "View evidence" opens the resume with every counted skill
+   highlighted, the exact sentence behind each match, and negated mentions such as
+   "no Python experience" struck through so you can see what was *not* counted.
+
+![Evidence panel: each required skill with the sentence that proves it](docs/screenshots/web-evidence.png)
 
 Prefer one click? In the web app, **Auto-run all steps** fills the form and builds
-the shortlist for you, showing each step as it goes.
+the shortlist for you, showing each step as it goes. With your own role brief it keeps
+your text exactly as written.
 
 ![Auto-run filling in the form step by step](docs/screenshots/web-auto-run.png)
 
@@ -29,8 +41,8 @@ the shortlist for you, showing each step as it goes.
 | | Web app (`vercel-app/`) | Python dashboard (`app/`) |
 |---|---|---|
 | Built with | Next.js + TypeScript | Streamlit + scikit-learn |
-| Resumes | `.txt` files | PDF files |
-| Highlights | Manual and Automated modes, role templates, runs fully in the browser | Charts, candidate comparison, PDF decision report, structured demo dataset |
+| Resumes | PDF or `.txt`, read in the browser | PDF files |
+| Highlights | Evidence panel, score rings, Manual and Automated modes, role templates, runs fully in the browser | Charts, candidate comparison, PDF decision report, structured demo dataset |
 
 ![Streamlit dashboard with score breakdown, distribution and skill matrix](docs/screenshots/streamlit-dashboard.png)
 
@@ -57,6 +69,18 @@ flagged for review rather than rejected.
 The web app runs entirely in your browser, so uploaded text is never sent to a
 server. The Streamlit app processes uploads in a temporary folder that is deleted
 straight after analysis.
+
+**Does Lens check years of experience?**
+Yes, as evidence rather than as a score. It estimates each candidate's experience from
+job dates ("Jan 2021 – Present") and statements ("3 years of experience"), ignores
+education dates, and compares that with the role's minimum. Candidates below it are
+flagged for review, and candidates with unclear experience stay visible, because years
+of experience can hint at age and a short career gap should not hide a strong candidate.
+
+**Do awards or "big-name" internships raise the score?**
+No. Highlights are shown so the recruiter gets the fuller picture, but they are never
+added to the score, and employers are shown exactly as written rather than ranked by
+reputation, which would favour candidates with more privileged access.
 
 **Does it use AI or an LLM?**
 No. Scoring is transparent: rule-based skill detection plus keyword and TF-IDF
@@ -178,6 +202,9 @@ ranking as a decision.
 - Structured demo data is privacy-reduced, not anonymous: names or employers
   written inside arbitrary free text cannot be removed reliably.
 - Scanned or image-only PDFs need OCR before their text can be analysed.
+- Experience estimates (web app) are approximate: unusual date formats are missed,
+  and a negation after the phrase ("2 years of experience is not something I have")
+  is not detected.
 - Blind screening hides candidate and file identifiers in results, but resume
   text can still contain protected attributes or other bias-relevant signals.
 

@@ -7,6 +7,34 @@ under **Unreleased** before sharing or deploying the application.
 
 ### Added
 
+- Web app: **Write my own role** now fills the rest of the brief from the job description:
+  job title ("seeking a data analyst" -> Data Analyst), seniority (level words or years),
+  minimum experience, employment type, and location with work mode. Fields are
+  tagged **auto** and stop following the description once edited by hand.
+- Web app: the Min. experience list also shows a stated value outside the presets (e.g. 6+ years).
+
+- Web app: **Write my own role** - a blank role form with an employment type field, required-field badges, a character counter and a "Describe the role"
+  checklist in place of results until the brief is complete. Roles can be saved in the
+  browser (**Save as my role**), reloaded from *My saved roles* and removed.
+- Web app: Auto-run now keeps a recruiter's own job description instead of replacing it
+  with a template, and asks for a title and description if the blank form is empty.
+
+- Web app: Highlights - awards and recognition, competitions and coding achievements,
+  certifications and internships extracted from each resume and shown on cards, in the
+  evidence panel and in the CSV. Lines about what a candidate lacks or plans
+  ("no certifications yet") are ignored. Highlights are never added to the score.
+- Web app: Minimum experience requirement (Any to 10+ years), prefilled from the job
+  description ("3+ years of experience") or the seniority default, with an optional
+  filter in step 4.
+- Web app: estimated experience per candidate from job date ranges and stated years
+  (education dates ignored, overlapping jobs merged, rounded down to the half year),
+  shown as meets / below / unclear on each card, in the evidence panel and in the CSV.
+  It is flagged for review and never added to the score.
+- Web app: evidence panel showing each required skill with the sentence that proves it,
+  the resume text with counted skills highlighted, and negated mentions struck through.
+- Web app: score ring and points breakdown (skills, keywords, text similarity) on every card.
+- Web app: PDF upload read in the browser with pdf.js; image-only PDFs are skipped with a message.
+- Web app: fuller fictional demo resumes, including a negated skill.
 - README: screenshots, How it works, Two ways to use it, and FAQ sections.
 - Web app (`vercel-app`): Manual and Automated modes. **Auto-run all steps** picks a
   role template, types the job description, ticks must-haves, loads candidates and
@@ -65,6 +93,7 @@ under **Unreleased** before sharing or deploying the application.
 
 ### Fixed
 
+- Web app: "Top evidence match" now shows the best overall match even when no candidate passes the filters.
 - Web app: blind-screening labels are now consistent across cards, table and CSV.
 - Web app: `.txt` uploads are accepted on Windows even when the browser reports no
   file type, and uploaded resumes keep their file names when blind screening is off.
